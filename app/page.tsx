@@ -95,7 +95,7 @@ export default function Home() {
     const maxReceber = Math.max(...valoresReceber);
     const maxPagar = Math.max(...valoresPagar);
 
-    // Adiciona uma margem de 10% pra ficar bonito no gráfico
+    // Adiciona uma margem de 10%
     const margemSeguranca = 1.1;
 
     const max = Math.ceil(maxReceber * margemSeguranca);
@@ -104,7 +104,7 @@ export default function Home() {
     return { min, max };
   }
 
-  // ✅ ADICIONA AQUI:
+  // ADICIONA AQUI:
   const { min, max } = calcularMinMaxGrafico(responseChartColumn.data.items);
 
   const seriesObjColumn = [
