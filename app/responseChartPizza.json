@@ -1,0 +1,86 @@
+{
+  "contasPagar": {
+    "categorias": [
+      {
+        "nome": "Fornecedores",
+        "valor": 45000,
+        "porcentagem": 22.0
+      },
+      {
+        "nome": "Folha de Pagamento",
+        "valor": 38000,
+        "porcentagem": 18.5
+      },
+      {
+        "nome": "Impostos",
+        "valor": 32000,
+        "porcentagem": 15.6
+      },
+      {
+        "nome": "Aluguel",
+        "valor": 25000,
+        "porcentagem": 12.2
+      },
+      {
+        "nome": "Energia/Água",
+        "valor": 18000,
+        "porcentagem": 8.8
+      },
+      {
+        "nome": "Internet/Telefonia",
+        "valor": 12000,
+        "porcentagem": 5.9
+      },
+      {
+        "nome": "Manutenção",
+        "valor": 9500,
+        "porcentagem": 4.6
+      },
+      {
+        "nome": "Transporte",
+        "valor": 8000,
+        "porcentagem": 3.9
+      },
+      {
+        "nome": "Marketing",
+        "valor": 6500,
+        "porcentagem": 3.2
+      },
+      {
+        "nome": "TI/Software",
+        "valor": 4500,
+        "porcentagem": 2.2
+      },
+      {
+        "nome": "Seguros",
+        "valor": 3800,
+        "porcentagem": 1.9
+      },
+      {
+        "nome": "Consultorias",
+        "valor": 2900,
+        "porcentagem": 1.4
+      },
+      {
+        "nome": "Treinamentos",
+        "valor": 2200,
+        "porcentagem": 1.1
+      },
+      {
+        "nome": "Material Escritório",
+        "valor": 1500,
+        "porcentagem": 0.7
+      },
+      {
+        "nome": "Outros",
+        "valor": 3100,
+        "porcentagem": 1.5
+      }
+    ],
+    "total": 205500,
+    "jaPago": 85000,
+    "aPagar": 120500,
+    "vencidos": 15000,
+    "venceEm7Dias": 18500
+  }
+}

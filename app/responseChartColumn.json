@@ -1,0 +1,195 @@
+{
+    "success": true,
+    "data": {
+        "periodo": {
+            "inicio": "2024-11-01",
+            "fim": "2024-11-30",
+            "tipo": "mensal"
+        },
+        "resumo": {
+            "totalReceber": 1159000,
+            "totalPagar": -963000,
+            "saldoPeriodo": 196000,
+            "mediaReceber": 38633.33,
+            "mediaPagar": -32100.00
+        },
+        "items": [
+            {
+                "data": "2024-11-01",
+                "diaSemana": "Sexta",
+                "contasReceber": 45000,
+                "contasPagar": -38000,
+                "saldo": 7000
+            },
+            {
+                "data": "2024-11-02",
+                "diaSemana": "Sábado",
+                "contasReceber": 32000,
+                "contasPagar": -25000,
+                "saldo": 7000
+            },
+            {
+                "data": "2024-11-03",
+                "diaSemana": "Domingo",
+                "contasReceber": 28000,
+                "contasPagar": -32000,
+                "saldo": -4000
+            },
+            {
+                "data": "2024-11-04",
+                "diaSemana": "Segunda",
+                "contasReceber": 51000,
+                "contasPagar": -41000,
+                "saldo": 10000
+            },
+            {
+                "data": "2024-11-05",
+                "diaSemana": "Terça",
+                "contasReceber": 38000,
+                "contasPagar": -29000,
+                "saldo": 9000
+            },
+            {
+                "data": "2024-11-06",
+                "diaSemana": "Quarta",
+                "contasReceber": 42000,
+                "contasPagar": -35000,
+                "saldo": 7000
+            },
+            {
+                "data": "2024-11-07",
+                "diaSemana": "Quinta",
+                "contasReceber": 35000,
+                "contasPagar": -28000,
+                "saldo": 7000
+            },
+            {
+                "data": "2024-11-08",
+                "diaSemana": "Sexta",
+                "contasReceber": 29000,
+                "contasPagar": -33000,
+                "saldo": -4000
+            },
+            {
+                "data": "2024-11-09",
+                "diaSemana": "Sábado",
+                "contasReceber": 47000,
+                "contasPagar": -39000,
+                "saldo": 8000
+            },
+            {
+                "data": "2024-11-10",
+                "diaSemana": "Domingo",
+                "contasReceber": 33000,
+                "contasPagar": -27000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-11",
+                "diaSemana": "Segunda",
+                "contasReceber": 41000,
+                "contasPagar": -36000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-12",
+                "diaSemana": "Terça",
+                "contasReceber": 36000,
+                "contasPagar": -31000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-13",
+                "diaSemana": "Quarta",
+                "contasReceber": 44000,
+                "contasPagar": -38000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-14",
+                "diaSemana": "Quinta",
+                "contasReceber": 31000,
+                "contasPagar": -26000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-15",
+                "diaSemana": "Sexta",
+                "contasReceber": 48000,
+                "contasPagar": -42000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-16",
+                "diaSemana": "Sábado",
+                "contasReceber": 37000,
+                "contasPagar": -30000,
+                "saldo": 7000
+            },
+            {
+                "data": "2024-11-17",
+                "diaSemana": "Domingo",
+                "contasReceber": 39000,
+                "contasPagar": -34000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-18",
+                "diaSemana": "Segunda",
+                "contasReceber": 43000,
+                "contasPagar": -37000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-19",
+                "diaSemana": "Terça",
+                "contasReceber": 30000,
+                "contasPagar": -28000,
+                "saldo": 2000
+            },
+            {
+                "data": "2024-11-20",
+                "diaSemana": "Quarta",
+                "contasReceber": 46000,
+                "contasPagar": -40000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-21",
+                "diaSemana": "Quinta",
+                "contasReceber": 34000,
+                "contasPagar": -29000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-22",
+                "diaSemana": "Sexta",
+                "contasReceber": 40000,
+                "contasPagar": -35000,
+                "saldo": 5000
+            },
+            {
+                "data": "2024-11-23",
+                "diaSemana": "Sábado",
+                "contasReceber": 35000,
+                "contasPagar": -31000,
+                "saldo": 4000
+            },
+            {
+                "data": "2024-11-24",
+                "diaSemana": "Domingo",
+                "contasReceber": 49000,
+                "contasPagar": -43000,
+                "saldo": 6000
+            },
+            {
+                "data": "2024-11-25",
+                "diaSemana": "Segunda",
+                "contasReceber": 32000,
+                "contasPagar": -27000,
+                "saldo": 5000
+            }
+        ]
+    },
+    "timestamp": "2024-11-18T14:36:00.000Z"
+}
