@@ -1,3 +1,5 @@
+import {memo} from "react";
+
 import CardContasPagar from './CardContasPagar';
 import CardContasReceber from './CardContasReceber';
 import ChartReceberVsPagar from './ChartReceberVsPagar';
@@ -26,7 +28,7 @@ interface AcompanhamentoProps {
   max: number
 }
 
-export default function Acompanhamento({
+function Acompanhamento({
   dashboardData,
   graphPizzaData,
   chartColumn,
@@ -57,3 +59,5 @@ export default function Acompanhamento({
     </div>
   );
 }
+
+export default memo(Acompanhamento);

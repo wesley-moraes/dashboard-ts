@@ -1,13 +1,16 @@
+'use client'
+
 import ReactApexChart from 'react-apexcharts';
 import { ChartPieIcon } from '@heroicons/react/24/outline';
-import { ApexOptions } from 'apexcharts';
+
+import {memo} from "react"
 
 interface ChartGastosPorGrupoProps {
   series: number[];
   labels: string[];
 }
 
-export default function ChartGastosPorGrupo({ 
+function ChartGastosPorGrupo({ 
   series, 
   labels 
 }: ChartGastosPorGrupoProps) {
@@ -182,3 +185,5 @@ export default function ChartGastosPorGrupo({
     </div>
   );
 }
+
+export default memo(ChartGastosPorGrupo);

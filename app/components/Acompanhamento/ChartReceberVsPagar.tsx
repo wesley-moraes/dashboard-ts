@@ -1,7 +1,8 @@
-import ReactApexChart from 'react-apexcharts';
+
 import { PresentationChartBarIcon } from '@heroicons/react/24/outline';
-import { ApexOptions } from 'apexcharts';
+
 import dynamic from 'next/dynamic';
+import {memo} from "react";
 
 interface ChartReceberVsPagarProps {
   series: ApexAxisChartSeries;
@@ -10,7 +11,7 @@ interface ChartReceberVsPagarProps {
   max: number
 }
 
-export default function ChartReceberVsPagar({ 
+function ChartReceberVsPagar({ 
   series, 
   categories,
   min,
@@ -53,7 +54,7 @@ export default function ChartReceberVsPagar({
                     show: false,
                 },
                 zoom: {
-                    enabled: true
+                    enabled: false
                 }
             },
 
@@ -246,3 +247,5 @@ export default function ChartReceberVsPagar({
     </div>
   );
 }
+
+export default memo(ChartReceberVsPagar);

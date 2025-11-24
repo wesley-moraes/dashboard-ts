@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Acompanhamento from "./components/Acompanhamento";
 import moment from "moment";
 
@@ -9,6 +9,8 @@ import responseChartPizza from "./responseChartPizza.json";
 import Header from "./components/FinancialMonitor/Header";
 import PeriodSelector from "./components/FinancialMonitor/PeriodSelector";
 import DateFilters from "./components/FinancialMonitor/DateFilter";
+import ButtonFilter from "./components/FinancialMonitor/ButtonFilter";
+import Spinner from "./Spinner";
 
 export default function Home() {
 
@@ -20,20 +22,16 @@ export default function Home() {
     saldo: number;
   }
 
-  type PeriodType = "daily" | "monthly" | "annual" | "custom";
+  type PeriodType = "monthly" | "annual";
 
   interface PeriodLabelsProps {
-    daily: string;
     monthly: string;
     annual: string;
-    custom: string
   }
 
   const periodLabels: PeriodLabelsProps = { //Para exibir no titulo
-    daily: "Diário",
     monthly: "Mensal",
     annual: "Anual",
-    custom: "Personalizado"
   };
 
   //resposta do backend - substituir
@@ -52,38 +50,78 @@ export default function Home() {
     }
   }
 
+  const [periodType, setPeriodType] = useState<PeriodType>("monthly"); // Período efetivamente aplicado
+  const [tempPeriodType, setTempPeriodType] = useState<PeriodType>("monthly"); //Período selecionado temporariamente
+  const [dateFilter, setDateFilter] = useState(""); // Data aplicada após confirmação
+  const [tempDate, setTempDate] = useState(""); // Valor temporário do input (antes do filtro)
+  const [valueInput, setValueInput] = useState({ monthValue: "", yearValue: moment().year() });
 
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [periodType, setPeriodType] = useState<PeriodType>("daily"); // "daily", "monthly", "annual"
+  useEffect(() => {
+    // Simula o carregamento inicial
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // Ajuste o tempo conforme necessário
+  }, []); // ← Executa apenas uma vez ao montar o componente
 
-  const seriesPizza = responseChartPizza.contasPagar.categorias.map(cat => cat.valor); //Valor
-  const labelsPizza = responseChartPizza.contasPagar.categorias.map(cat => cat.nome); //Legenda
+  useEffect(() => {
+    if (tempPeriodType === "annual") {
+      setTempDate(String(valueInput.yearValue)); // ← Sincroniza!
+    } else if (tempPeriodType === "monthly") {
+      setTempDate(valueInput.monthValue); // ← Sincroniza!
+    }
+  }, [tempPeriodType]); // ← Executa quando muda o tipo de período
 
-  const graphPizzaData = {
-    series: seriesPizza,
-    labels: labelsPizza
+  const handleApplyFilter = async () => {
+    setIsLoading(true);
+    // Se for anual e não tiver tempDate, use o valueInput.yearValue
+    if (tempPeriodType === "annual" && !tempDate) {
+      setDateFilter(String(valueInput.yearValue));
+    } else {
+      setDateFilter(tempDate);
+    }
+    setPeriodType(tempPeriodType);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  };
+
+  /*
+  useEffect(() => {
+    console.log("dateFilter atualizado:", dateFilter);
+  }, [dateFilter]); // ← Executa toda vez que dateFilter muda
+  */
+
+  const handleReset = () => {
+    setValueInput({
+      monthValue: "",
+      yearValue: moment().year()
+    });
+    setTempDate(""); // ← Limpa também o tempDate
+    setDateFilter(""); // ← E o dateFilter
+    setPeriodType("monthly"); // ← Volta pro padrão
+    setTempPeriodType("monthly"); // ← E o temp também
   }
 
-  //Gráfico de barras bidirecional
-  const seriesColumnContasReceber = responseChartColumn.data.items.map(item => item.contasReceber); //Coluna de contas a receber
-  const seriesColumnContasPagar = responseChartColumn.data.items.map(item => item.contasPagar); //Coluna de contas a pagar
-  let xaxisCategories: any = []; //Legenda
-  switch (periodType) {
-    case "daily":
-      xaxisCategories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("DD/MM"));
-      break;
-    case "monthly":
-      xaxisCategories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("DD/MM"));
-      break;
-    case "annual":
-      xaxisCategories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("MMMM [de] YY"));
-      break;
-    case "custom":
-      xaxisCategories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("DD/MM"));
-      break;
-  }
+  // Função para atualizar o valueInput
+  const handleChangeInput = (field: 'monthValue' | 'yearValue', value: string) => {
+    setValueInput(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
 
-  //Calcula o valor maximo e minimo a ser exibido no yaxis
+  // Estados para os dados processados
+  const [graphPizzaData, setGraphPizzaData] = useState<{ series: number[]; labels: string[] }>({
+    series: [],
+    labels: []
+  });
+  const [seriesObjColumn, setSeriesObjColumn] = useState<{ name: string; data: number[] }[]>([]);
+  const [xaxisCategories, setXaxisCategories] = useState<string[]>([]);
+  const [minMax, setMinMax] = useState<{ min: number; max: number }>({ min: 0, max: 0 });
+
   function calcularMinMaxGrafico(items: ChartItem[]) {
     // Pega todos os valores de contas a receber
     const valoresReceber = items.map(item => item.contasReceber);
@@ -104,31 +142,50 @@ export default function Home() {
     return { min, max };
   }
 
-  // ADICIONA AQUI:
-  const { min, max } = calcularMinMaxGrafico(responseChartColumn.data.items);
 
-  const seriesObjColumn = [
-    {
-      name: 'Contas a Receber',
-      data: seriesColumnContasReceber
-    },
-    {
-      name: 'Contas a Pagar',
-      data: seriesColumnContasPagar
+  useEffect(() => {
+
+    // Processamento do gráfico de pizza
+    const seriesPizza = responseChartPizza.contasPagar.categorias.map(cat => cat.valor);
+    const labelsPizza = responseChartPizza.contasPagar.categorias.map(cat => cat.nome);
+
+    setGraphPizzaData({
+      series: seriesPizza,
+      labels: labelsPizza
+    });
+
+    // Processamento do gráfico de barras
+    const seriesColumnContasReceber = responseChartColumn.data.items.map(item => item.contasReceber);
+    const seriesColumnContasPagar = responseChartColumn.data.items.map(item => item.contasPagar);
+
+    let categories: any = [];
+    switch (tempPeriodType) {
+      case "monthly":
+        categories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("DD/MM"));
+        break;
+      case "annual":
+        categories = responseChartColumn.data.items.map(item => moment(item.data).locale('pt-br').format("MMMM [de] YY"));
+        break;
     }
-  ]
 
+    const { min, max } = calcularMinMaxGrafico(responseChartColumn.data.items);
 
+    setSeriesObjColumn([
+      {
+        name: 'Contas a Receber',
+        data: seriesColumnContasReceber
+      },
+      {
+        name: 'Contas a Pagar',
+        data: seriesColumnContasPagar
+      }
+    ]);
 
-  const [dateFilter, setDateFilter] = useState(""); //Disponibilização da data para filtrar
-  const [dateEndFilter, setDateEndFilter] = useState(""); //Disponibilização da data para filtrar quando personalizado
-  const handleChangeDate = (date: string) => {
-    setDateFilter(date);
-  }
+    setXaxisCategories(categories);
+    setMinMax({ min, max });
 
-  const handleChangeEndDate = (date: string) => {
-    setDateEndFilter(date);
-  }
+  }, [dateFilter]);
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -140,14 +197,21 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
               <PeriodSelector
-                periodType={periodType}
-                onChange={setPeriodType}
+                periodType={tempPeriodType}
+                onChange={setTempPeriodType}
               />
 
               <DateFilters
-                periodType={periodType}
-                onChangeDate={handleChangeDate}
-                onChangeEndDate={handleChangeEndDate}
+                periodType={tempPeriodType}
+                onChangeDate={setTempDate}
+                valueInput={valueInput}
+                onChangeInput={handleChangeInput}
+
+              />
+
+              <ButtonFilter
+                onClick={handleApplyFilter}
+                onReset={handleReset}
               />
             </div>
           </div>
@@ -156,14 +220,19 @@ export default function Home() {
 
       {/* Conteúdo Principal */}
       <main className="container mx-auto px-4 py-8">
-        <Acompanhamento
-          dashboardData={dashboardData}
-          graphPizzaData={graphPizzaData}
-          chartColumn={seriesObjColumn}
-          chartColumnCategories={xaxisCategories}
-          min={min}
-          max={max}
-        />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Acompanhamento
+            dashboardData={dashboardData}
+            graphPizzaData={graphPizzaData}
+            chartColumn={seriesObjColumn}
+            chartColumnCategories={xaxisCategories}
+            min={minMax.min}
+            max={minMax.max}
+          />
+        )}
+
       </main>
     </div>
   );
